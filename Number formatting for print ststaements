@@ -1,0 +1,34 @@
+// This code shows how to format printing by specifing the number of spaces the number has befor printing, and formating the float numbers too
+
+
+import java.util.Scanner;
+
+public class FormattedPrinting {
+
+	public static void main(String[] args) 
+	{
+		// Read price per pack
+		
+		Scanner in = new Scanner(System.in); // Allows user input
+		System.out.print("Please enter the price for a six-pack: ");
+		double packPrice = in.nextDouble(); // Tells computer go and get the next available double
+		
+		// Read can volume
+		
+		System.out.print("Please enter the volume for each can (in ounces): ");
+		double canVolume = in.nextDouble();
+		
+		// Compute pack volume
+		
+		final double CANS_PER_PACK = 6; // Value CANNOT be changed due to being a final
+		double packVolume = canVolume * CANS_PER_PACK;
+		
+		//Compute and print price per ounce
+		
+		double pricePerOunce = packPrice / packVolume;
+		
+		System.out.printf("Price per ounce: %8.2f",  pricePerOunce);
+		System.out.println();
+	}
+	
+}
