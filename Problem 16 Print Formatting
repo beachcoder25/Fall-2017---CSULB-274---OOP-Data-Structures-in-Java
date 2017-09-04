@@ -1,0 +1,12 @@
+
+public class Problem16PrintFormat {
+
+	public static void main(String[] args) {
+		double bottles = 8.654131;
+		double cans = 9.13646;
+		System.out.printf("Bottles: %8.2f \n", bottles);
+		System.out.printf("Cans: %11.2f", cans);
+	}
+	
+}
+
