@@ -1,0 +1,10 @@
+//Write statements to prompt for and read the user’s age using a Scanner variable named in.
+public class Problem15UserInput {
+
+		public static void main(String[] args) {
+			
+			// Scanner userAge = new Scanner(System.in) 
+			System.out.print("What is your age?");
+			int age = in.nextInt(); 
+		}
+}
