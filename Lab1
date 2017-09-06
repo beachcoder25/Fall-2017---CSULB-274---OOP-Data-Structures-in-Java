@@ -1,0 +1,64 @@
+Lab Question # 1
+
+package Lab1;
+
+import java.util.Scanner;
+
+public class FinalAnswer {
+
+public static void main(String[] args) {
+		
+		Scanner in = new Scanner(System.in); //Scanner allows us to read user input
+		
+		System.out.print("Let's get this party started! Enter the date of your event: "); //Ask user to enter date
+		String date = in.nextLine().trim(); 
+		
+		System.out.print("Good. Now, what would you like to call your event? "); //Ask user to name event
+		String eventName = in.nextLine().trim(); 
+		
+		System.out.print("What is the maximum amount of guests allowed? "); // Ask user max amount of guests
+		int numberOfGuests = Integer.parseInt(in.nextLine().trim()) ; 
+		
+		// int y  = Integer.valueOf(numberOfGuests); // There has to be a way where I can ask for an int right off the bat, correct? <line 18> is how you do this, int numberOfGuests = Integer.parseInt(in.nextLine().trim()) ; 
+		
+		
+		String [] names = new String[numberOfGuests]; // Creates a string array, with a size based on the number of guests
+		int currentCount = 0;
+		
+		// Create additional variable, current count
+		for (int counter = 0; counter < numberOfGuests; counter++) { //Loop that continues asking user to enter items until they enter DONE
+			//System.out.println("Thank you.  Please enter the name of each guest followed by ENTER.  When you are done, enter DONE.");
+			System.out.print("Guest Name: ");
+			String guestName = in.nextLine().trim();
+			names[counter] = guestName;
+			currentCount++;
+			
+			if(counter == numberOfGuests) {
+				System.out.println("This is the information on your Labor Day BBQ event...");
+				System.out.printf("Date: %s\nMax Num. of Guests: %s\n Current Num. of Guests", date, numberOfGuests); // Does %s stand for a string value?
+					for (String name : names) {
+						System.out.println(guestName);	
+					}
+				
+				break;
+			}
+	
+			else if(guestName.equals("DONE")) { //Create conditional for user input to exit our loop, and terminate the program
+				System.out.printf("Date: %s\nMax Num. of Guests: %s\n", date, numberOfGuests); // Does %s stand for a string value?
+				System.out.print("Current Num. of Guests: " + (counter) + "\n"); 
+				System.out.println("Current Guests: ");
+				
+				// Figure out code for printing the guests names, create an array list with guest names, then make a print statement that prints them with
+					
+				for (int x = 0; x < (currentCount - 1); x++) 
+				{
+					System.out.printf("%s\n", names[x]);
+					}
+			//System.out.println(currentCount);
+			System.out.print("Have a great party!");
+			break;
+					
+			}	
+		}
+	}
+}
