@@ -103,13 +103,7 @@ public class Final1 {
 					
 					/**
 					 * We found a match lets add to our total and print our receipt!
-					 * 
-					 * 
 					 * @total Total price for our items
-					 * I tried everything I could think of to try and match my group2 from the text file with group2
-					 * in my element, even printing group 2 of the element out to ensure it was correct.
-					 * 
-					 * I should have been making sure group 1 and 3 were equal on the lines below, but just couldn't get it to work.
 					 */
 					
 					if (element.replaceAll("\\s+",  " ").equals(group1)) // && element.equals(group2)
