@@ -1,0 +1,144 @@
+package Project1;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+
+public class Final1 {
+
+	/**
+	 * 
+	 * This program will take user input of item names and their size and compile an itemized receipt with their total
+	 * 
+	 * @param args
+	 * @throws FileNotFoundException
+	 */
+	
+
+	public static void main(String[] args) throws FileNotFoundException {
+
+		/**
+		 * ArrayList used to store user input to be compared to text file line
+		 */
+		
+		ArrayList<String> items = new ArrayList<String>();
+		ArrayList<String> sizes = new ArrayList<String>();
+		Scanner in = new Scanner(System.in);
+		Boolean gotOne = true;
+		String itemName;
+		String itemPrice;
+		String itemAmount;
+		Double size;
+		Double price;
+		Double total = 0.0;
+
+		System.out.println("What would you like to name your file?");
+		String inputFileName = in.nextLine(); // Store user input as a string value
+		System.out.print("\n");
+		
+		/**
+		 * Here is where we convert the user input to a filename created on the desktop
+		 */
+		String fileNameComplete = "C:\\Users\\Jonah\\Desktop\\Receipts\\" + inputFileName + ".txt";
+		System.out.println("This is your file path: " + fileNameComplete);
+
+		/**
+		 * @patter Pattern used for matching, extracts string item name,
+		 *  and it's price in different groups for printing purposes, 
+		 */
+
+		Pattern docPattern = Pattern.compile("([\\w|\\&|\\s]+\\s)([\\d|.]+\\D+)([\\d|.]+)"); 
+		
+		/**
+		 * @dowhile Keep asking user the item name and size until they are "done", appending all entries to an ArrayList named items
+		 */
+
+		do {
+			System.out.println("Enter the name of your item and it's size: ");
+			System.out.println(" ");
+			itemName = in.nextLine();
+			
+			items.add(itemName); // This is how an array list
+		} while (!itemName.equals("done")); // use .equals instead of == for strings
+
+		
+		/**
+		 * @printWriter Print customers name to file
+		 */
+		PrintWriter outputFile = new PrintWriter(fileNameComplete);
+		File inputFile = new File("C:\\Users\\Jonah\\Documents\\PriceList3.txt"); // File we read from
+		outputFile.println("Just Fooding");
+		outputFile.println("123 E. Lechuga St");
+		outputFile.println("Carrotville, CA 99999");
+		outputFile.println("\n");
+		
+		outputFile.println("Item \t\t\t\tSubtotal");
+		for (String element : items) // For each element in our array
+		{
+			Scanner FileIN = new Scanner(inputFile); // Read through our entire document so we can check for a match
+
+			while (FileIN.hasNextLine()) // Ensures you go line by line
+			{
+				String currentLine = FileIN.nextLine(); // this is the current line in the document
+				Matcher docMatcher = docPattern.matcher(currentLine); // matching the pattern to the current line
+
+				/** 
+				 * @param docMatcher.find(), when match is found we start to process it 
+				 * which includes isolation of individual groups for printing purposes
+				 * @group group1 = item name, group2 = size, group3 = price
+				 */
+				if (docMatcher.find()) { 
+					
+					// Creating String variable to make printing easier, removong whitespace to make checking easier
+			
+
+					String group1 = docMatcher.group(1).replaceAll("\\s+",  " "); 
+					String group2 = docMatcher.group(2).replaceAll("\\s+",  " ");
+					String group3 = docMatcher.group(3).replaceAll("\\s+",  " ");
+					
+					/**
+					 * We found a match lets add to our total and print our receipt!
+					 * 
+					 * 
+					 * @total Total price for our items
+					 * I tried everything I could think of to try and match my group2 from the text file with group2
+					 * in my element, even printing group 2 of the element out to ensure it was correct.
+					 * 
+					 * I should have been making sure group 1 and 3 were equal on the lines below, but just couldn't get it to work.
+					 */
+					
+					if (element.replaceAll("\\s+",  " ").equals(group1)) // && element.equals(group2)
+					{
+						String printItem = group1.replaceAll("\\s+",  " ");
+						String group3$tring = "$" + group3;
+						double group3DBL = Double.parseDouble(group3);
+						
+						total = group3DBL + total;
+						
+						outputFile.printf("%-3s %18s %n", printItem, group3$tring); // Formatted printing
+						
+						// Testing program with print statements
+						
+						System.out.println("Success\n");
+						System.out.println(group3DBL);
+						System.out.println(group2); // group 2 is correct, and yet it still wont match...
+						System.out.println(element.replaceAll("\\s+",  " "));
+						
+					}
+
+				} // Lunchmakers                      Turkey   
+			}
+			FileIN.close();
+		}
+		outputFile.printf("%n%n"); 
+		outputFile.printf("Total: $%.2f", total);
+		outputFile.close();
+	}
+
+}
+
